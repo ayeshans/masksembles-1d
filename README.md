@@ -1,68 +1,19 @@
 <div align="center">
 
-# Lightning-Hydra-Template
+# Masksembles 1D
 
-<a href="https://www.python.org/"><img alt="Python" src="https://img.shields.io/badge/-Python 3.7+-blue?style=for-the-badge&logo=python&logoColor=white"></a>
-<a href="https://pytorch.org/get-started/locally/"><img alt="PyTorch" src="https://img.shields.io/badge/-PyTorch 1.8+-ee4c2c?style=for-the-badge&logo=pytorch&logoColor=white"></a>
-<a href="https://pytorchlightning.ai/"><img alt="Lightning" src="https://img.shields.io/badge/-Lightning 1.5+-792ee5?style=for-the-badge&logo=pytorchlightning&logoColor=white"></a>
-<a href="https://hydra.cc/"><img alt="Config: hydra" src="https://img.shields.io/badge/config-hydra 1.1-89b8cd?style=for-the-badge&labelColor=gray"></a>
-<a href="https://black.readthedocs.io/en/stable/"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-black.svg?style=for-the-badge&labelColor=gray"></a>
-
-A clean and scalable template to kickstart your deep learning project 🚀⚡🔥<br>
-Click on [<kbd>Use this template</kbd>](https://github.com/ashleve/lightning-hydra-template/generate) to initialize new repository.
-
-_Suggestions are always welcome!_
+An implementation of a CNN with masksembles for 1D signal data.
 
 </div>
 
 <br><br>
 
-## 📌&nbsp;&nbsp;Introduction
-
-This template tries to be as general as possible. It integrates many different MLOps tools.
-
-> Effective usage of this template requires learning of a couple of technologies: [PyTorch](https://pytorch.org), [PyTorch Lightning](https://www.pytorchlightning.ai) and [Hydra](https://hydra.cc). Knowledge of some experiment logging framework like [Weights&Biases](https://wandb.com), [Neptune](https://neptune.ai) or [MLFlow](https://mlflow.org) is also recommended.
-
-**Why you should use it:** it allows you to rapidly iterate over new models/datasets and scale your projects from small single experiments to hyperparameter searches on computing clusters, without writing any boilerplate code. To my knowledge, it's one of the most convenient all-in-one technology stack for Deep Learning research. Good starting point for reproducing papers, kaggle competitions or small-team research projects. It's also a collection of best practices for efficient workflow and reproducibility.
-
-**Why you shouldn't use it:** this template is not fitted to be a production environment, should be used more as a fast experimentation tool. Apart from that, Lightning and Hydra are still evolving and integrate many libraries, which means sometimes things break - for the list of currently known bugs, visit [this page](https://github.com/ashleve/lightning-hydra-template/labels/bug). Also, even though Lightning is very flexible, it's not well suited for every possible deep learning task. See [#Limitations](#limitations) for more.
-
-### Why PyTorch Lightning?
-
-[PyTorch Lightning](https://github.com/PyTorchLightning/pytorch-lightning) is a lightweight PyTorch wrapper for high-performance AI research.
-It makes your code neatly organized and provides lots of useful features, like ability to run model on CPU, GPU, multi-GPU cluster and TPU.
-
-### Why Hydra?
-
-[Hydra](https://github.com/facebookresearch/hydra) is an open-source Python framework that simplifies the development of research and other complex applications. The key feature is the ability to dynamically create a hierarchical configuration by composition and override it through config files and the command line. It allows you to conveniently manage experiments and provides many useful plugins, like [Optuna Sweeper](https://hydra.cc/docs/next/plugins/optuna_sweeper) for hyperparameter search, or [Ray Launcher](https://hydra.cc/docs/next/plugins/ray_launcher) for running jobs on a cluster.
-
-<br>
-
-## Main Ideas Of This Template
-
-- **Predefined Structure**: clean and scalable so that work can easily be extended and replicated | [#Project Structure](#project-structure)
-- **Rapid Experimentation**: thanks to automating pipeline with config files and hydra command line superpowers | [#Your Superpowers](#your-superpowers)
-- **Reproducibility**: obtaining similar results is supported in multiple ways | [#Reproducibility](#reproducibility)
-- **Little Boilerplate**: so pipeline can be easily modified | [#How It Works](#how-it-works)
-- **Main Configuration**: main config file specifies default training configuration | [#Main Project Configuration](#main-project-configuration)
-- **Experiment Configurations**: can be composed out of smaller configs and override chosen hyperparameters | [#Experiment Configuration](#experiment-configuration)
-- **Workflow**: comes down to 4 simple steps | [#Workflow](#workflow)
-- **Experiment Tracking**: many logging frameworks can be easily integrated, like Tensorboard, MLFlow or W&B | [#Experiment Tracking](#experiment-tracking)
-- **Logs**: all logs (checkpoints, data from loggers, hparams, etc.) are stored in a convenient folder structure imposed by Hydra | [#Logs](#logs)
-- **Hyperparameter Search**: made easier with Hydra built-in plugins like [Optuna Sweeper](https://hydra.cc/docs/next/plugins/optuna_sweeper) | [#Hyperparameter Search](#hyperparameter-search)
-- **Tests**: unit tests and shell/command based tests for speeding up the development | [#Tests](#tests)
-- **Best Practices**: a couple of recommended tools, practices and standards for efficient workflow and reproducibility | [#Best Practices](#best-practices)
-
-<br>
 
 ## Project Structure
 
 The directory structure of new project looks like this:
 
 ```
-├── bash                    <- Bash scripts
-│   └── schedule.sh             <- Schedule execution of many runs
-│
 ├── configs                 <- Hydra configuration files
 │   ├── callbacks               <- Callbacks configs
 │   ├── datamodule              <- Datamodule configs
@@ -94,16 +45,12 @@ The directory structure of new project looks like this:
 │   ├── datamodules             <- Lightning datamodules
 │   ├── models                  <- Lightning models
 │   ├── utils                   <- Utility scripts
-│   ├── vendor                  <- Third party code that cannot be installed using PIP/Conda
-│   │
 │   └── train.py                <- Training pipeline
 │
 ├── run.py                  <- Run pipeline with chosen experiment configuration
 │
-├── .env.example            <- Template of the file for storing private environment variables
+├── .env            <- File for storing private environment variables
 ├── .gitignore              <- List of files/folders ignored by git
-├── .pre-commit-config.yaml <- Configuration of automatic code formatting
-├── setup.cfg               <- Configurations of linters and pytest
 ├── requirements.txt        <- File for installing python dependencies
 └── README.md
 ```
@@ -114,21 +61,17 @@ The directory structure of new project looks like this:
 
 ```bash
 # clone project
-git clone https://github.com/ashleve/lightning-hydra-template
-cd lightning-hydra-template
+git clone https://github.com/ayeshans/masksembles-1d
+cd masksembles-1d
 
 # [OPTIONAL] create conda environment
 conda create -n myenv python=3.8
 conda activate myenv
 
-# install pytorch according to instructions
-# https://pytorch.org/get-started/
-
 # install requirements
 pip install -r requirements.txt
 ```
 
-Template contains example with MNIST classification.<br>
 When running `python run.py` you should see something like this:
 
 <div align="center">
@@ -393,20 +336,8 @@ python run.py -m 'experiment=glob(*)'
 
 <br>
 
-## ❤️&nbsp;&nbsp;Contributions
-
-Have a question? Found a bug? Missing a specific feature? Have an idea for improving documentation? Feel free to file a new issue, discussion or PR with respective title and description. If you already found a solution to your problem, don't hesitate to share it. Suggestions for new best practices are always welcome!
-
-<br>
 
 ## ℹ️&nbsp;&nbsp;Guide
-
-### How To Get Started
-
-- First, you should probably get familiar with [PyTorch Lightning](https://www.pytorchlightning.ai)
-- Next, go through [Hydra quick start guide](https://hydra.cc/docs/intro/) and [basic Hydra tutorial](https://hydra.cc/docs/tutorials/basic/your_first_app/simple_cli/)
-
-<br>
 
 ### How It Works
 
